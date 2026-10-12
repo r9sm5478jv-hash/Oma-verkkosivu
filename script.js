@@ -30,11 +30,11 @@ const faktat = [
     "Jalo tutkii mielellään uusia hajuja."
 ];
 
-faktat.forEach(fakta => {
+faktat.forEach(function (fakta) {
     console.log(fakta);
 });
 
-// Nappi
+// Jalo-faktanappi
 
 const nappi = document.getElementById("faktaNappi");
 const tulos = document.getElementById("tulos");
@@ -45,4 +45,37 @@ nappi.addEventListener("click", function () {
         faktat[Math.floor(Math.random() * faktat.length)];
 
     tulos.textContent = satunnainen;
+});
+
+// Viikko 4 API
+
+const koiraNappi = document.getElementById("koiraNappi");
+const koiraKuva = document.getElementById("koiraKuva");
+const tila = document.getElementById("tila");
+
+koiraNappi.addEventListener("click", function () {
+
+    tila.textContent = "Haetaan koirakuvaa...";
+
+    fetch("https://dog.ceo/api/breeds/image/random")
+
+        .then(function (response) {
+            return response.json();
+        })
+
+        .then(function (data) {
+
+            console.log(data);
+
+            koiraKuva.src = data.message;
+
+            tila.textContent = "Kuva haettu!";
+        })
+
+        .catch(function (error) {
+
+            console.log(error);
+
+            tila.textContent = "Kuvan lataaminen epäonnistui.";
+        });
 });
